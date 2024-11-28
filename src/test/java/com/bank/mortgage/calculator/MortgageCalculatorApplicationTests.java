@@ -1,4 +1,4 @@
-package com.bank.api.mortgage.calculator;
+package com.bank.mortgage.calculator;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
