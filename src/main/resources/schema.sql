@@ -1,0 +1,8 @@
+DROP TABLE MORTGAGE_INTEREST_RATE IF EXISTS;
+
+CREATE TABLE MORTGAGE_INTEREST_RATE(
+    maturity_period NUMBER(2) NOT NULL,
+    interest_rate NUMBER(5,2) NOT NULL,
+    last_update TIMESTAMP NOT NULL,
+    PRIMARY KEY (maturity_period)
+);

@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @Slf4j
 @AllArgsConstructor
@@ -18,8 +16,13 @@ public class MortgageCalculatorController {
 
     private final MortgageCalculatorService mortgageCalculatorService;
 
+    @MortgageCalculatorApiDocumentation
     @PostMapping("/api/mortgage-check")
-    public MortgageApplicantResponse mortgageCalculator(@RequestBody MortgageApplicantRequest mortgageApplicantRequest) {
+    public MortgageApplicantResponse mortgageCalculator(
+            @RequestBody final MortgageApplicantRequest mortgageApplicantRequest) {
+        log.debug("Received request for /api/mortgage-check - applicant details: {} ", mortgageApplicantRequest.toString());
+
+        mortgageApplicantRequest.validateFields();
         return mortgageCalculatorService.mortageEligibilityCheck(mortgageApplicantRequest);
     }
 

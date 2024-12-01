@@ -2,9 +2,9 @@
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:mortgage-database
-    username: adminuser
-    password: adminuserpwd
+    url: jdbc:h2:mem:testdb
+    username: test
+    password: test
 
   jpa:
     show-sql: false
@@ -23,7 +23,7 @@ spring:
     type: caffeine
     cache-names: interestRateCacheManager
     caffeine:
-      spec: maximumSize=1000,expireAfterWrite=1h,recordStats
+      spec: maximumSize=100,expireAfterWrite=600s
 
 logger:
   root: debug

@@ -1,17 +1,21 @@
-package com.bank.mortgage.calculator.domain;
+package com.bank.mortgage.calculator.domain.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Data
-@Builder(toBuilder = true)
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 @Table(name = "MORTGAGE_INTEREST_RATE")
 public class MortgageInterestRate {
 

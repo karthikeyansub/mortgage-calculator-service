@@ -1,8 +1,9 @@
 package com.bank.mortgage.calculator.service;
 
 import com.bank.mortgage.calculator.domain.MortgageInterestRateResponse;
-import com.bank.mortgage.calculator.domain.MortgageInterestRate;
+import com.bank.mortgage.calculator.domain.Entity.MortgageInterestRate;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class InterestRateService {
 
     private final InterestRateCacheService interestRateCacheService;
