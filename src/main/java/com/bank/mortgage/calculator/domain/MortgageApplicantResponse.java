@@ -7,5 +7,6 @@ import java.math.BigDecimal;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record MortgageApplicantResponse(boolean feasible,
-                                        BigDecimal costs) implements Serializable {
+                                        BigDecimal costs,
+                                        String message) implements Serializable {
 }
