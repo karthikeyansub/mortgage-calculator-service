@@ -1,0 +1,21 @@
+
+spring:
+# In-Memory cache
+  cache:
+    type: caffeine
+    cache-names: interestRateCacheManager
+    caffeine:
+      spec: maximumSize=1000,expireAfterWrite=1h,recordStats
+
+springdoc:
+  api-docs.enabled: true
+  swagger-ui.enabled: true
+  swagger-ui.path: /swagger-ui.html
+
+security:
+  basic:
+    enabled: false
+
+#Logging
+logging:
+  level.root: INFO

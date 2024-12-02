@@ -5,7 +5,8 @@ spring:
     type: caffeine
     cache-names: interestRateCacheManager
     caffeine:
-      spec: maximumSize=100,expireAfterWrite=600s
+      spec: maximumSize=1000,expireAfterWrite=1h,recordStats
 
+#Logging
 logging:
-  level.root: DEBUG
+  level.root: INFO

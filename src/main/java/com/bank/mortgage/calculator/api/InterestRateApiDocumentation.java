@@ -11,16 +11,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Operation(summary = "Retrieve list of current interest rates.",
-        description = " This api will return list of current interest rates based on the maturity period.")
+        description = " This API will return a list of current interest rates.")
 @ApiResponses(value = {
         @ApiResponse(responseCode = "200",
                 description = """
-                            Retrieves list of current interest rates with below fields.
-                            The mortgage rate object contains the fields:
-                                - maturityPeriod (integer)
-                                - interestRate (Percentage)
-                                - lastUpdate (Timestamp)
-                            NOTE: It will return empty object if no records found.
+                            Returns a list of current interest rates.
+                            NOTE: An empty object will be returned if no records are found.
                         """
         ),
         @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)

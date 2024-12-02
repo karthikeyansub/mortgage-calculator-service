@@ -1,8 +1,8 @@
 package com.bank.mortgage.calculator.service;
 
-import com.bank.mortgage.calculator.domain.Entity.MortgageInterestRate;
 import com.bank.mortgage.calculator.domain.MortgageApplicantRequest;
 import com.bank.mortgage.calculator.domain.MortgageApplicantResponse;
+import com.bank.mortgage.calculator.domain.MortgageInterestRate;
 import com.bank.mortgage.calculator.exception.InvalidInputException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

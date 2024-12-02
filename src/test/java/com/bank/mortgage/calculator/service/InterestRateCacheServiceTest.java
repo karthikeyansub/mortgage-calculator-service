@@ -1,7 +1,6 @@
 package com.bank.mortgage.calculator.service;
 
-import com.bank.mortgage.calculator.domain.Entity.MortgageInterestRate;
-import com.bank.mortgage.calculator.repository.MortgageInterestRateRepository;
+import com.bank.mortgage.calculator.domain.MortgageInterestRate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -35,9 +34,6 @@ class InterestRateCacheServiceTest {
     private InterestRateCacheService classUnderTest;
 
     @Mock
-    private MortgageInterestRateRepository mockMortgageInterestRateRepository;
-
-    @Mock
     private CacheManager mockCacheManager;
 
     @Mock
@@ -46,19 +42,16 @@ class InterestRateCacheServiceTest {
     @BeforeEach
     void setUp() {
         when(mockCacheManager.getCache("interestRateCacheManager")).thenReturn(mockCache);
-        classUnderTest = new InterestRateCacheService(mockMortgageInterestRateRepository,
-                mockCacheManager);
+        classUnderTest = new InterestRateCacheService(mockCacheManager);
     }
 
     @Test
     void testGetInterestRates_ShouldGetResultFromDB_WhenNoResultFoundInCache() {
         when(mockCache.get(INTEREST_RATE_CACHED_LIST, List.class)).thenReturn(new ArrayList<>());
-        when(mockMortgageInterestRateRepository.findAll()).thenReturn(getMockInterestDataList());
 
         List<MortgageInterestRate> result = classUnderTest.getInterestRates();
 
         assertFalse(result.isEmpty());
-        verify(mockMortgageInterestRateRepository, times(1)).findAll();
     }
 
     @Test
@@ -68,19 +61,18 @@ class InterestRateCacheServiceTest {
         List<MortgageInterestRate> result = classUnderTest.getInterestRates();
 
         assertFalse(result.isEmpty());
-        verify(mockMortgageInterestRateRepository, times(0)).findAll();
     }
 
     @Test
     void testGetInterestRateByMaturityPeriod_ShouldGetResultFromDB_WhenNoResultFoundInCache() {
-        when(mockCache.get(INTEREST_RATE_CACHED_MAP, Map.class)).thenReturn(Collections.EMPTY_MAP);
-        when(mockMortgageInterestRateRepository.findAll()).thenReturn(getMockInterestDataList());
+        when(mockCache.get(INTEREST_RATE_CACHED_MAP, Map.class)).thenReturn(Collections.EMPTY_MAP)
+                .thenReturn(getMockInterestDataMap());
 
         MortgageInterestRate result = classUnderTest.getInterestRateByMaturityPeriod(1);
 
         assertNotNull(result);
-        assertEquals( 2.25d, result.getInterestRate());
-        verify(mockMortgageInterestRateRepository, times(1)).findAll();
+        assertEquals( 2.25d, result.interestRate());
+        verify(mockCache, times(2)).get(INTEREST_RATE_CACHED_MAP, Map.class);
     }
 
     @Test
@@ -90,8 +82,7 @@ class InterestRateCacheServiceTest {
         MortgageInterestRate result = classUnderTest.getInterestRateByMaturityPeriod(1);
 
         assertNotNull(result);
-        assertEquals( 2.25d, result.getInterestRate());
-        verify(mockMortgageInterestRateRepository, times(0)).findAll();
+        assertEquals( 2.25d, result.interestRate());
     }
 
     @Test

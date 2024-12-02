@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class MortgageCalculatorControllerTest {
+class MortgageCalculatorControllerIT {
 
     @Autowired
     private MockMvc mockMvc;
@@ -41,7 +41,7 @@ class MortgageCalculatorControllerTest {
         void testMortgageCalculator_WithFeasibilityTrue() throws Exception {
             MortgageApplicantRequest request = MortgageApplicantRequest.builder()
                     .income(new BigDecimal(50000))
-                    .maturityPeriod(5)
+                    .maturityPeriod(10)
                     .homeValue(new BigDecimal(225000))
                     .loanValue(new BigDecimal(200000)).build();
 
@@ -77,6 +77,7 @@ class MortgageCalculatorControllerTest {
             String responseJson = result.getResponse().getContentAsString();
             MortgageApplicantResponse response = objectMapper.readValue(responseJson, MortgageApplicantResponse.class);
             assertFalse(response.feasible());
+            assertEquals("Loan amount exceeds 4 times the income amount", response.message());
             assertNull(response.costs());
         }
 
@@ -99,6 +100,7 @@ class MortgageCalculatorControllerTest {
             String responseJson = result.getResponse().getContentAsString();
             MortgageApplicantResponse response = objectMapper.readValue(responseJson, MortgageApplicantResponse.class);
             assertFalse(response.feasible());
+            assertEquals("Loan value exceeds the home value", response.message());
             assertNull(response.costs());
         }
 
